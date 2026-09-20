@@ -1,0 +1,3 @@
+import {sqliteTable,text,integer,primaryKey} from "drizzle-orm/sqlite-core";
+export const words=sqliteTable("words",{user:text("user").notNull(),word:text("word").notNull(),translation:text("translation").notNull(),level:text("level").notNull(),created:text("created").notNull(),correct:integer("correct").notNull().default(0)},t=>[primaryKey({columns:[t.user,t.word]})]);
+export const events=sqliteTable("events",{user:text("user").notNull(),id:text("id").notNull(),kind:text("kind").notNull(),correct:integer("correct").notNull(),day:text("day").notNull()},t=>[primaryKey({columns:[t.user,t.id]})]);

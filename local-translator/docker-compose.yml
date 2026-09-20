@@ -1,0 +1,26 @@
+services:
+  translator:
+    image: libretranslate/libretranslate:latest
+    restart: unless-stopped
+    environment:
+      LT_LOAD_ONLY: en,ru
+      LT_DISABLE_WEB_UI: "true"
+    volumes:
+      - libretranslate_data:/home/libretranslate/.local
+
+  proxy:
+    image: node:22-alpine
+    restart: unless-stopped
+    working_dir: /app
+    command: ["node", "proxy.mjs"]
+    environment:
+      WORDLY_TRANSLATOR_TOKEN: ${WORDLY_TRANSLATOR_TOKEN}
+    ports:
+      - "127.0.0.1:8080:8080"
+    volumes:
+      - ./proxy.mjs:/app/proxy.mjs:ro
+    depends_on:
+      - translator
+
+volumes:
+  libretranslate_data:

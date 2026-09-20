@@ -13,8 +13,6 @@ services:
     restart: unless-stopped
     working_dir: /app
     command: ["node", "proxy.mjs"]
-    environment:
-      WORDLY_TRANSLATOR_TOKEN: ${WORDLY_TRANSLATOR_TOKEN}
     ports:
       - "127.0.0.1:8080:8080"
     volumes:
